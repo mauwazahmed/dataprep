@@ -370,8 +370,8 @@ for i in set(data['Functional Area'].values):
 # In[ ]:
 
 
-data.to_csv (r'C:\Users\Lenovo\Desktop\Code\Scripts\job_dataset.csv', index = False, header=True)
-data_enc.to_csv (r'C:\Users\Lenovo\Desktop\Code\Scripts\job_dataset_encoded.csv', index = False, header=True)
+data.to_csv ('job_dataset.csv', index = False, header=True)
+data_enc.to_csv ('job_dataset_encoded.csv', index = False, header=True)
 
 
 # In[ ]:
