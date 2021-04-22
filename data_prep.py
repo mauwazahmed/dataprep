@@ -1,29 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
 
 ## Import cleaned dataset
 import pandas as pd
 data = pd.read_csv('clean.csv')
 
 
-# In[2]:
-
-
 ##Taking subset for quick word embedding
 #data = data.loc[6001:10000]
-
-
-# In[3]:
-
-
-#data
-
-
-# In[4]:
-
 
 ##Lemmatization
 ##Replace all skills with their respective lemmatized grammar
@@ -47,14 +32,7 @@ for k in col:
     
 
 
-# In[5]:
-
-
 ##Word Embedding
-
-
-# In[6]:
-
 
 #Make a set of all unique skills present in the entire dataset across all 7 columns
 
@@ -108,16 +86,6 @@ for i in range(len(skills)):
                 skill_dct[skills[i]].append(j)
                 
 
-#print(c)
-
-
-# In[ ]:
-
-
-#print(c)
-
-
-# In[ ]:
 
 
 #data_enc includes integer codes of all columns on which machine learning model is to be trained
@@ -130,9 +98,6 @@ data_enc = data.copy()
 print(skill_dct)
 
 
-# In[ ]:
-
-
 for key,val in skill_dct.items():
     #Single length value should be assigned as the code to key
     if type(val) == list:
@@ -142,21 +107,6 @@ for key,val in skill_dct.items():
             #Sorting lists in ascending order for comparison
             val.sort()
             skill_dct[key] = val
-
-
-# In[ ]:
-
-
-#skill_dct
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
 
 
 
@@ -210,23 +160,12 @@ for key,val in skill_dct.items():
                 
  
 
-
-# In[ ]:
-
-
 #Check if any value left in dct which is of type list
 for key,val in skill_dct.items():
     if val is list:
         print('spot')
 
 
-# In[ ]:
-
-
-#data_enc
-
-
-# In[ ]:
 
 
 ##Replacing the 7 Skill columns with their encoded values
@@ -237,7 +176,6 @@ for s in col:
     data_enc[s] = data_enc[s].replace(skill_dct)
 
 
-# In[ ]:
 
 
 #Making dictionary for assigning codes to every unique element in the columns
@@ -280,7 +218,6 @@ for i,val in enumerate(title):
 data_enc['Job Title'] = data_enc['Job Title'].replace(job_dct)
 
 
-# In[ ]:
 
 
 #Making json files for dct which will be required in generating viz
@@ -304,32 +241,6 @@ with open('rolecat.json','w') as f:
 with open('industry.json','w') as f:
     json.dump(ind_dct,f)
 
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-#data_enc
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
 
 
 
@@ -361,13 +272,7 @@ for i in set(data['Functional Area'].values):
         data_enc.drop(ind, inplace=True)
 
 
-# In[ ]:
 
-
-
-
-
-# In[ ]:
 
 
 data.to_csv ('job_dataset.csv', index = False, header=True)
