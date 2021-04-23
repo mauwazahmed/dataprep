@@ -3,9 +3,10 @@
 
 
 ## Import cleaned dataset
+print("Hi")
 import pandas as pd
 data = pd.read_csv('clean.csv')
-
+print("Imported CSV")
 
 ##Taking subset for quick word embedding
 #data = data.loc[6001:10000]
@@ -14,6 +15,7 @@ data = pd.read_csv('clean.csv')
 ##Replace all skills with their respective lemmatized grammar
 import spacy
 nlp = spacy.load('en_core_web_lg')
+print("Loaded NLP")
 col = ['Skill1','Skill2','Skill3','Skill4','Skill5','Skill6','Skill7']
 c = 0
 for k in col:
@@ -24,13 +26,12 @@ for k in col:
             l[i] = " ".join([token.lemma_ for token in p])
             
             c = c + 1
-            
         except:
             continue
         
     data[k] = data[k].replace(l)
     
-
+print("Loop1 over")
 
 ##Word Embedding
 
@@ -46,6 +47,7 @@ s7 = list(set(list(data['Skill7'].values)))
 
 m = s1+s2+s3+s4+s5+s6+s7
 skills = list(set(m))
+print("Length of skills set")
 print(len(skills))
 
 ##Prepare a skill_dct for the skill and its respective code value
@@ -53,10 +55,12 @@ skill_dct = {}
 
 for i, val in enumerate(skills):
     skill_dct[val] = [i]
-
+    print(".")
 c = 0
+print("Loop2 over")
 ##The following is a nested loop for checking similarity of each skill with the other
 for i in range(len(skills)):
+    print(".")
     if c == 2000:
         print("Done")
         c = 0
@@ -67,6 +71,7 @@ for i in range(len(skills)):
     for j in range(i+1,len(skills)):
         #if len(skills[j]) < 5:
             #continue
+        print("*")
         if (skills[i].__contains__(skills[j][0:3*int(len(skills[j])/4)])) or (skills[j].__contains__(skills[i][0:3*int(len(skills[i])/4)])):
             if i not in skill_dct[skills[j]]:
                 skill_dct[skills[j]].append(i)
@@ -86,7 +91,7 @@ for i in range(len(skills)):
                 skill_dct[skills[i]].append(j)
                 
 
-
+print("Loop3 over")
 
 #data_enc includes integer codes of all columns on which machine learning model is to be trained
 data_enc = data.copy()
